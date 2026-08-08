@@ -1,0 +1,52 @@
+name: Update Tokyo Weather Data
+
+on:
+  schedule:
+    - cron: "20 21 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  actions: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Fetch latest Tokyo weather
+        run: python scripts/update_weather.py
+
+      - name: Validate static app
+        run: node scripts/validate-site.mjs
+
+      - name: Commit generated data
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: "Update Tokyo weather data"
+          file_pattern: site/data/tokyo-weather.json
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+      - name: Deploy refreshed site to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
