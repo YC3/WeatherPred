@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tokyo Weather Forecast Lab</title>
+    <meta
+      name="description"
+      content="A compact weather forecasting dashboard for testing GitHub Pages CI/CD."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Tokyo Area</p>
+          <h1 id="page-title">Weather Forecast Lab</h1>
+          <p class="lede">
+            A static CI/CD demo that compares latest conditions, a simple
+            seasonal model, and a five-day forecast.
+          </p>
+        </div>
+        <div class="status-panel" aria-label="Latest weather snapshot">
+          <span class="status-dot"></span>
+          <div>
+            <p class="status-label">Latest update</p>
+            <p id="last-updated" class="status-value">Loading</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="metrics" aria-label="Current weather metrics">
+        <article class="metric">
+          <span>Current</span>
+          <strong id="current-temp">--</strong>
+          <small>temperature</small>
+        </article>
+        <article class="metric">
+          <span>Rain</span>
+          <strong id="current-rain">--</strong>
+          <small>today</small>
+        </article>
+        <article class="metric">
+          <span>Wind</span>
+          <strong id="current-wind">--</strong>
+          <small>maximum</small>
+        </article>
+        <article class="metric">
+          <span>Confidence</span>
+          <strong id="confidence">--</strong>
+          <small>model score</small>
+        </article>
+      </section>
+
+      <section class="workspace">
+        <article class="chart-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Next 5 Days</p>
+              <h2>Temperature Forecast</h2>
+            </div>
+            <span id="model-name" class="chip">Seasonal baseline</span>
+          </div>
+          <canvas id="forecast-chart" width="960" height="360"></canvas>
+        </article>
+
+        <aside class="insight-panel">
+          <p class="eyebrow">AI Analyst Mock</p>
+          <h2>Forecast Brief</h2>
+          <p id="brief">Loading forecast brief.</p>
+          <div class="risk-row">
+            <span>Precipitation risk</span>
+            <strong id="rain-risk">--</strong>
+          </div>
+          <div class="risk-row">
+            <span>Planning note</span>
+            <strong id="planning-note">--</strong>
+          </div>
+        </aside>
+      </section>
+
+      <section class="forecast-grid" id="forecast-grid" aria-label="Five-day forecast"></section>
+    </main>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
